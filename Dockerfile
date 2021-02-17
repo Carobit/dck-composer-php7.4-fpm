@@ -1,4 +1,5 @@
 FROM php:7.4-fpm-alpine
+ARG COMPOSER_VER=2.0.8
 
 RUN apk add imap-dev yarn openldap-dev krb5-dev zlib-dev wget git fcgi libpng-dev libmemcached-dev sudo libzip-dev \
     icu-dev rabbitmq-c-dev libxml2-dev curl-dev imagemagick imagemagick-libs imagemagick-dev \
@@ -18,7 +19,7 @@ RUN apk add imap-dev yarn openldap-dev krb5-dev zlib-dev wget git fcgi libpng-de
     && apk del autoconf g++ wget make \
     && rm -rf /tmp/* /var/cache/apk/* \
 # composer
-    && cd /usr/bin/ && wget -O composer https://getcomposer.org/download/2.0.8/composer.phar && chmod +x /usr/bin/composer \
+    && cd /usr/bin/ && wget -O composer https://getcomposer.org/download/${COMPOSER_VER}/composer.phar && chmod +x /usr/bin/composer \
 # fix log path
     && sed -i "s/error_log.*/error_log = \/var\/log\/php7\.4\-fpm\.error.log/g" /usr/local/etc/php-fpm.d/docker.conf \
     && sed -i "s/access.log.*/access.log = \/var\/log\/php7\.4\-fpm\.access.log/g" /usr/local/etc/php-fpm.d/docker.conf \
