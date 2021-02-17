@@ -30,11 +30,11 @@ RUN apk add imap-dev yarn openldap-dev krb5-dev zlib-dev wget git fcgi libpng-de
 RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
-# change to www-data user
-#RUN rm -rf /var/www/* && chown www-data.www-data -R /var/www
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+RUN addgroup -g ${GROUP_ID} appuser && adduser -u ${USER_ID} -D -G appuser appuser
 
-USER www-data
-ENV PATH="${PATH}:/home/www-data/.composer/vendor/bin"
+ENV PATH="${PATH}:/home/appuser/.composer/vendor/bin"
 
 USER root
 
