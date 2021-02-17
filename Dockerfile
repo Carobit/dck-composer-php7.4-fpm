@@ -4,7 +4,7 @@ RUN apk add imap-dev yarn openldap-dev krb5-dev zlib-dev wget git fcgi libpng-de
     icu-dev rabbitmq-c-dev libxml2-dev curl-dev imagemagick imagemagick-libs imagemagick-dev \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install pdo_mysql pdo imap zip ldap mysqli bcmath opcache gd sockets intl \
+    && docker-php-ext-install calendar pdo_mysql pdo imap zip ldap mysqli bcmath opcache gd sockets intl \
     && apk add autoconf \
         g++ \
         make \
@@ -12,6 +12,7 @@ RUN apk add imap-dev yarn openldap-dev krb5-dev zlib-dev wget git fcgi libpng-de
     && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install solr && docker-php-ext-enable solr \
     && pecl install imagick && docker-php-ext-enable imagick \
+    && pecl install mongodb && docker-php-ext-enable mongodb \
     && apk add ca-certificates \
 #cleanup
     && apk del autoconf g++ wget make \
